@@ -70,4 +70,5 @@ class Post(models.Model):
 
     def increase_views(self):
         self.views += 1
+        #只自增views字段
         self.save(update_fields=['views'])
