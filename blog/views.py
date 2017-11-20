@@ -103,6 +103,14 @@ def category(request, pk):
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
+
+#标签
+class TagView(IndexView):
+    def get_queryset(self):
+        tags = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        return super(TagView, self).get_queryset().filter(tags=tags)
+
+
 def tag(request,pk):
     tags=get_object_or_404(Tag,pk=pk)
     post_list = Post.objects.filter(tags=tags).order_by('-created_time')
