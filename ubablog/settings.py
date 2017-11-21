@@ -136,9 +136,9 @@ STATIC_URL = '/static/'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine', #引擎
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'), #路径
     },
-}
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+} 
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5 #搜索后分页
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  #索引更新
