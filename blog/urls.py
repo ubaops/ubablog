@@ -2,7 +2,9 @@ from django.conf.urls import url
 
 from . import views
 
-
+handler403 = views.permission_denied
+handler404 = views.page_not_found
+handler500 = views.page_error
 app_name = 'blog'
 urlpatterns = [
     #url(r'^$', views.uba, name='uba'),
@@ -21,5 +23,7 @@ urlpatterns = [
     
     url(r'^tag/(?P<pk>[0-9]+)/$', views.TagView.as_view(), name='tag'),
     #url(r'^tag/(?P<pk>[0-9]+)/$', views.tag, name='tag'),
+
+    
     
 ] 
