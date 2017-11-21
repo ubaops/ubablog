@@ -6,9 +6,32 @@ from django.http import HttpResponse
 import markdown
 from comments.forms import CommentForm
 from django.views.generic import ListView, DetailView
-#首页
-def uba(request):
-    return render(request, 'blog/uba.html')
+from django.db.models import Q
+
+
+def page_not_found(request):
+    return render(request, '404.html')
+
+
+def page_error(request):
+    return render(request, '500.html')
+
+
+def permission_denied(request):
+    return render(request, '403.html')
+
+#搜索
+def search(request):
+    searchText=request.GET.get('searchText')
+    error_msg=''
+
+    if not searchText:
+        error_msg="请输入关键词！"
+        return render(request,'blog/index.html',{'error_msg':error_msg})
+
+    post_list=Post.objects.filter(Q(title__icontains=searchText)|Q(body__icontains=searchText))
+    return render(request,'blog/index.html',{'error_msg':error_msg,'post_list':post_list})
+
 
 
 #index类视图
@@ -16,7 +39,7 @@ class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    paginate_by = 1
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         """
